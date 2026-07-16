@@ -1,0 +1,9 @@
+{
+  "_lisezmoi": "Données de la démo MPP. Modifiable sans toucher au code.",
+  "home": {
+    "hero": {
+      "_bg": "Fond du hero. Valeurs possibles : beige | creme | lime | vanille | bleu | violet | orange | rose. La couleur de texte associée est automatique (paires garanties AA, voir mpp/hero.css).",
+      "bg": "beige"
+    }
+  }
+}

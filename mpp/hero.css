@@ -1,0 +1,100 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MPP — HERO : fond changeable + couleur de texte accordée (Tâche 1).
+   Chargé après overrides.css (qui définit --mpp-ink).
+
+   PAIRES fond → texte. Les ratios ci-dessous sont MESURÉS (WCAG 2.1, formule
+   de luminance relative), pas estimés. Seuil AA texte normal = 4.5.
+   Le texte #4a4a4a du site d'origine est volontairement écarté : il tombe à
+   2.96 sur bleu, 2.69 sur violet et 1.94 sur rose → illisible.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --hero-ink: #1b1b1b;
+  --hero-blanc: #ffffff;
+  /* défaut = beige, écrasé par html[data-hero-bg] dès que hero.js a lu data.json */
+  --hero-bg: #e1dccc;
+  --hero-text: var(--hero-ink);
+}
+
+html[data-hero-bg='beige']   { --hero-bg: #e1dccc; --hero-text: var(--hero-ink);   } /* 12.56 */
+html[data-hero-bg='creme']   { --hero-bg: #ebe6d4; --hero-text: var(--hero-ink);   } /* 13.78 */
+html[data-hero-bg='lime']    { --hero-bg: #d9dd7e; --hero-text: var(--hero-ink);   } /* 11.97 */
+html[data-hero-bg='vanille'] { --hero-bg: #eeefa2; --hero-text: var(--hero-ink);   } /* 14.36 */
+html[data-hero-bg='bleu']    { --hero-bg: #8195c2; --hero-text: var(--hero-ink);   } /*  5.75 */
+html[data-hero-bg='violet']  { --hero-bg: #8985d5; --hero-text: var(--hero-ink);   } /*  5.23 */
+html[data-hero-bg='orange']  { --hero-bg: #e8a248; --hero-text: var(--hero-ink);   } /*  7.95 */
+html[data-hero-bg='rose']    { --hero-bg: #c14c7c; --hero-text: var(--hero-blanc); } /*  4.57 — seul fond où l'encre échoue (3.77) */
+
+/* ─── Le hero ────────────────────────────────────────────────────────────────
+   SIGNALÉ (non demandé, donc non corrigé ailleurs) : le fond d'origine est une
+   PHOTO servie par le CDN Webflow DISTANT (cdn.prod.website-files.com), seule
+   référence distante restante du site. La tâche demande un fond couleur : on la
+   remplace ici, mais le lien distant subsiste dans le HTML d'origine. */
+.hero-section.main {
+  background-image: none !important;
+  background-color: var(--hero-bg) !important;
+  transition: background-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Les textes du hero prennent la couleur associée au fond.
+   AVANT : h1 en rgba(217,221,126,0.6) (lime à 60% d'opacité) ; h3 en blanc. */
+.hero-section.main .h1-hero-main,
+.hero-section.main .heading {
+  color: var(--hero-text) !important;
+  transition: color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section.main,
+  .hero-section.main .h1-hero-main,
+  .hero-section.main .heading { transition: none !important; }
+}
+
+/* ═══ WIDGET DEV — barre flottante de choix du fond ══════════════════════════
+   Injecté par hero.js UNIQUEMENT en local (localhost/127.0.0.1). */
+.mpp-dev-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: rgba(27, 27, 27, 0.82);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  font-family: Nunito, system-ui, sans-serif;
+}
+.mpp-dev-bar__label {
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+.mpp-dev-bar__swatch {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  outline-offset: 3px;
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+.mpp-dev-bar__swatch:hover { transform: scale(1.15); }
+.mpp-dev-bar__swatch[aria-pressed='true'] {
+  border-color: #fff;
+  transform: scale(1.15);
+}
+.mpp-dev-bar__reset {
+  background: none; border: 0; cursor: pointer;
+  color: #fff; opacity: 0.6;
+  font-size: 11px; text-decoration: underline;
+  padding: 0 2px;
+}
+.mpp-dev-bar__reset:hover { opacity: 1; }
