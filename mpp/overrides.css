@@ -53,6 +53,11 @@
      par-dessus la navbar/le menu encore ouvert. > --nav-slide (380ms). */
   --badge-delay: 400ms;
 
+  /* ─── Verre teinté : partagé par la navbar ET la pilule réseaux du hero ─── */
+  --verre-bg: rgba(245, 245, 242, 0.4);
+  --verre-blur: blur(18px) saturate(1.15);
+  --verre-ombre: 0 6px 28px rgba(27, 27, 27, 0.1);
+
   /* ─── Timings (Tâche d) ─── */
   --nav-slide: 380ms;
   --nav-fade: 260ms;
@@ -82,10 +87,10 @@
   gap: var(--nav-gap) !important;
   padding: var(--nav-pad-y) var(--nav-pad-x) !important;
   border-radius: 999px !important;                        /* coins très arrondis */
-  background: rgba(245, 245, 242, 0.4) !important;         /* gris clair translucide */
-  -webkit-backdrop-filter: blur(18px) saturate(1.15);
-  backdrop-filter: blur(18px) saturate(1.15);             /* verre teinté */
-  box-shadow: 0 6px 28px rgba(27, 27, 27, 0.1) !important; /* pas de bordure blanche */
+  background: var(--verre-bg) !important;                  /* gris clair translucide */
+  -webkit-backdrop-filter: var(--verre-blur);
+  backdrop-filter: var(--verre-blur);                      /* verre teinté */
+  box-shadow: var(--verre-ombre) !important;               /* pas de bordure blanche */
   overflow: visible !important;
 }
 /* Le clearfix de .w-container : inoffensif en flex, mais en grid ses pseudo-éléments

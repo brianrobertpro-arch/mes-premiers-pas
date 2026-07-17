@@ -2,8 +2,10 @@
   "_lisezmoi": "Données de la démo MPP. Modifiable sans toucher au code.",
   "home": {
     "hero": {
-      "_bg": "Fond du hero. Valeurs possibles : beige | creme | lime | vanille | bleu | violet | orange | rose. La couleur de texte associée est automatique (paires garanties AA, voir mpp/hero.css).",
-      "bg": "beige"
+      "_bg": "Fond du hero. Valeurs : beige | creme | lime | vanille | bleu | violet | orange | rose.",
+      "bg": "bleu",
+      "_text": "Couleur des titres h1. Mêmes valeurs, + ink | blanc. Retirer cette clé = couleur appairée automatiquement au fond (contraste AA garanti).",
+      "text": "orange"
     }
   }
 }

@@ -7,8 +7,13 @@
   const html = document.documentElement;
   const isMobile = () => window.matchMedia('(max-width: 991px)').matches;
 
-  // ÉTAT 1 par défaut à CHAQUE chargement (pas de mémorisation) : fermé.
-  if (!html.hasAttribute('data-nav')) html.setAttribute('data-nav', 'closed');
+  // À CHAQUE chargement, sur TOUTE page (pas de mémorisation) : navbar DÉPLOYÉE.
+  // Le badge n'apparaît qu'au premier scroll, quand la barre se replie.
+  // Sur mobile la navbar est display:none : « déployée » n'y veut rien dire, et
+  // 'open' y ouvrirait le menu plein écran → on y démarre sur le badge.
+  if (!html.hasAttribute('data-nav')) {
+    html.setAttribute('data-nav', isMobile() ? 'closed' : 'open');
+  }
 
   const setup = () => {
     const nav = document.querySelector('.navbar-2');
@@ -72,8 +77,9 @@
       if (refocus) badge.focus({ preventScroll: true });
     };
 
-    badge.setAttribute('aria-expanded', 'false');
-    badge.setAttribute('aria-label', 'Ouvrir le menu');
+    // reflète l'état RÉEL (la navbar démarre déployée sur desktop)
+    badge.setAttribute('aria-expanded', String(isOpen()));
+    badge.setAttribute('aria-label', isOpen() ? 'Fermer le menu' : 'Ouvrir le menu');
     badge.addEventListener('click', () => (isOpen() ? close() : open()));
 
     // ─── FERMETURE : flèche ↑ + « Fermer », À GAUCHE DU LOGO, sans fond ─────
