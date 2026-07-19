@@ -5,7 +5,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 (() => {
   const html = document.documentElement;
-  const isMobile = () => window.matchMedia('(max-width: 991px)').matches;
+  const isMobile = () => window.matchMedia('(max-width: 820px)').matches;
 
   // À CHAQUE chargement, sur TOUTE page (pas de mémorisation) : navbar DÉPLOYÉE.
   // Le badge n'apparaît qu'au premier scroll, quand la barre se replie.
@@ -102,7 +102,7 @@
     // ─── Placement de la flèche « Fermer » selon le breakpoint ──────────────
     // Sous 991px la navbar est display:none (CSS Webflow d'origine) : le bouton
     // y serait invisible. On le sort dans <body>, le CSS le fixe en haut à droite.
-    const mq = window.matchMedia('(max-width: 991px)');
+    const mq = window.matchMedia('(max-width: 820px)');
     const placeClose = () => {
       const btn = document.querySelector('.mpp-nav-close');
       if (!btn) return;

@@ -277,9 +277,19 @@ html[data-nav='closed'] .mpp-menu-badge {
   transition-delay: var(--badge-delay);   /* mais il ne revient qu'APRÈS la fermeture */
 }
 
+/* ═══ SEUIL DESKTOP ABAISSÉ À 820px ═════════════════════════════════════════
+   Le Webflow d'origine masque la navbar sous 991px. Une fenêtre à ~950px (cas
+   courant : navigateur non maximisé ou zoom à 150%) basculait donc en version
+   mobile — d'où le rendu différent entre Edge et Chrome à écran identique.
+   On garde la version desktop jusqu'à 820px pour supprimer cet écart. */
+@media screen and (min-width: 821px) and (max-width: 991px) {
+  .navbar-2 { display: block !important; }
+  .burger-btn, .mobile-menu { display: none !important; }
+}
+
 /* ═══ MOBILE ════════════════════════════════════════════════════════════════
    Le badge remplace le burger d'origine ; il ouvre le menu mobile. */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 820px) {
   .burger-btn { display: none !important; }     /* remplacé par le badge */
   :root { --badge-size: 70px; --badge-top: 18px; }   /* AVANT 62px : légèrement agrandi */
   .mpp-menu-badge { z-index: 10000; }                /* au-dessus du menu mobile */
