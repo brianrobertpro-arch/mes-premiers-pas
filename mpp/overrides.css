@@ -168,7 +168,7 @@ html[data-nav='open'] .navbar-2 {
   line-height: 1;
   white-space: nowrap;
 }
-.mpp-nav-close:hover { color: var(--mpp-bleu); }
+.mpp-nav-close:hover { color: var(--mpp-white); }
 .mpp-nav-close:hover .mpp-nav-close__arrow { transform: translateY(-3px); }
 .mpp-nav-close:focus-visible { outline: 3px solid var(--mpp-bleu); outline-offset: 3px; border-radius: 6px; }
 
@@ -201,13 +201,13 @@ html[data-nav='open'] .navbar-2 {
 .navbar-2 .link .link-text::after {
   content: attr(data-text);
   position: absolute; left: 0; top: 100%; width: 100%;
-  color: var(--mpp-bleu) !important;
+  color: var(--mpp-white) !important;   /* survol : blanc (et non bleu) */
 }
 .navbar-2 .link:hover .link-text { transform: translateY(-100%) !important; }
 .navbar-droite .link-2 { color: var(--mpp-ink) !important; }
 .navbar-droite .text-block { white-space: nowrap !important; }   /* tél sur 1 ligne */
 .navbar-2 .link { white-space: nowrap !important; }          /* liens sur 1 ligne */
-.navbar-droite .link-2:hover { color: var(--mpp-bleu) !important; }
+.navbar-droite .link-2:hover { color: var(--mpp-white) !important; }
 .navbar-droite .button.type1.pre-inscription {
   font-size: var(--nav-text-size) !important;
   white-space: nowrap !important;   /* sinon il passe à 2 lignes et POUSSE la hauteur de pilule */
@@ -222,13 +222,19 @@ html[data-nav='open'] .navbar-2 {
 
 /* Panneau dropdown accordé au verre clair */
 .custom-dropdown-panel {
-  top: 9vh !important;
-  background: rgba(245, 245, 242, 0.92) !important;
+  /* Sous la navbar, jamais dessus : le panneau démarrait à 9vh (76px) alors que
+     la navbar descend à --nav-height (88px) — il mordait dessus. Il se pose
+     désormais juste en dessous, avec un léger débordement vers le bas. */
+  top: calc(var(--nav-height) + 12px) !important;
+  /* Même verre teinté que la navbar (tokens partagés) */
+  background: var(--verre-bg) !important;
+  -webkit-backdrop-filter: var(--verre-blur);
+  backdrop-filter: var(--verre-blur);
+  box-shadow: var(--verre-ombre) !important;
   border-radius: 18px !important;
-  box-shadow: 0 12px 30px -12px rgba(27, 27, 27, 0.4);
 }
 .custom-dropdown-panel a { color: var(--mpp-ink) !important; font-size: var(--nav-text-size) !important; }
-.custom-dropdown-panel a:hover { color: var(--mpp-bleu) !important; }
+.custom-dropdown-panel a:hover { color: var(--mpp-white) !important; }
 
 /* ═══ BADGE « MENU » — le LOGO devient bouton ═══════════════════════════════
    Cercle lime EXACT du logo + les VRAIES empreintes (extraites de logo.png)

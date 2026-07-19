@@ -1,0 +1,40 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MPP — Flèches de navigation des carrousels
+   Les deux carrousels du site (crèches et équipe pilote) avaient des flèches
+   différentes. On aligne celles des CRÈCHES sur la forme de celles de l'ÉQUIPE
+   (référence choisie par Brian) : fond blanc légèrement translucide et ombre
+   plus douce. La taille reste adaptée à chaque contexte.
+
+   Référence mesurée sur #nav-btn (équipe) :
+     background rgba(255,255,255,0.95) · border-radius 50%
+     box-shadow rgba(0,0,0,0.1) 0 4px 15px
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cc-section .c3d-arrow {
+  background: rgba(255, 255, 255, 0.95) !important;   /* AVANT : blanc opaque */
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 15px !important;  /* AVANT : 0.15, plus dure */
+  border-radius: 50% !important;
+  border: 0 !important;
+  /* Cercle strictement rond : le parent .c3d-main porte une perspective 3D et
+     le bouton est un élément flex — sans ces garde-fous il pouvait s'étirer et
+     paraître ovale. */
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+  padding: 0 !important;
+  box-sizing: border-box;
+  line-height: 1 !important;
+  transition: box-shadow 220ms ease, background-color 220ms ease;
+}
+
+/* Même réaction au survol sur les deux carrousels.
+   ⚠ On ne touche PAS à `transform` : le bouton est centré verticalement par un
+   translateY(-50%) d'origine, qu'un scale() écraserait — il sautait alors de
+   26px au survol. On anime donc l'ombre et le fond uniquement. */
+.cc-section .c3d-arrow:hover {
+  background: rgba(255, 255, 255, 1) !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 6px 18px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-section .c3d-arrow { transition: none !important; }
+}
