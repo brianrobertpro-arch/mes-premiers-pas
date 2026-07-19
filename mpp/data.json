@@ -6,6 +6,22 @@
       "bg": "bleu",
       "_text": "Couleur des titres h1. Mêmes valeurs, + ink | blanc. Retirer cette clé = couleur appairée automatiquement au fond (contraste AA garanti).",
       "text": "orange"
+    },
+    "trail": {
+      "_lisezmoi": "Chemin d'empreintes. Le path est en coordonnées viewBox (x de 0 à 100 = largeur de page ; y de 0 à 466 = hauteur). Redessine la courbe ici sans toucher au code. Le chemin s'ARRÊTE dans la section équipe pilote (y 282-353) : les pas y entrent puis disparaissent derrière le carrousel. Repères : carrousel crèches y136-207, qui-sommes-nous y207-278, équipe y282-353.",
+      "viewBox": "0 0 100 466",
+      "path": "M 50 3 C 34 9 22 15 22 21 C 22 30 63 15 63 21 C 63 35 78 46 78 53 C 78 63 37 46 37 53 C 37 68 22 78 22 85 C 22 94 63 78 63 85 C 63 96 50 99 50 104 C 50 110 50 113 50 116 C 50 132 28 140 32 152 C 36 166 70 168 66 178 C 62 196 78 206 75 216 C 71 232 30 250 34 272 C 36 284 44 294 48 302",
+      "_reglages": "stepEvery = écart entre 2 pas (plus petit = foulée plus serrée) ; fadeSteps = longueur de la traînée avant effacement ; baseOpacity = 0 signifie que rien n'existe avant le passage de la marche ; headAnchor = où la marche se pose dans l'écran (0 = haut, 1 = bas).",
+      "stepEvery": 4.2,
+      "footScale": 3.1,
+      "sideOffset": 1.9,
+      "fadeSteps": 10,
+      "baseOpacity": 0,
+      "headAnchor": 0.78,
+      "autoStepsPerSec": 2.2,
+      "leadSteps": 9,
+      "catchUp": 2.4,
+      "colors": ["#d9dd7e", "#8195c2", "#8985d5", "#e8a248", "#c14c7c", "#eeefa2"]
     }
   }
 }
