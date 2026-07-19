@@ -87,6 +87,41 @@
     }
   };
 
+  // ─── Coupure au milieu des mots (.split-text) ─────────────────────────────
+  // Le script d'origine découpe ces paragraphes CARACTÈRE par caractère pour les
+  // animer. Chaque caractère devenant une boîte, le navigateur retourne à la
+  // ligne au milieu des mots (« accueil/lent », « accompa/gnement »). On
+  // regroupe les caractères par MOT : la coupure ne peut plus se faire qu'entre
+  // les mots, et l'animation d'origine est préservée (les spans sont conservés).
+  const reparerCoupures = () => {
+    document.querySelectorAll('.split-text').forEach((bloc) => {
+      // On teste l'ÉTAT RÉEL, pas un marqueur : le script d'origine se ré-exécute
+      // et reconstruit les caractères, ce qui détruisait les groupes — un
+      // marqueur posé une fois empêchait alors de les refaire.
+      if (bloc.querySelector('.mpp-mot')) return;
+      const enfants = [...bloc.childNodes];
+      if (!enfants.some((n) => n.nodeType === 1 && n.textContent.length <= 2)) return;
+      let mot = null;
+      enfants.forEach((n) => {
+        const txt = n.textContent;
+        const estEspace = n.nodeType === 3 ? !txt.trim() : (n.tagName !== 'BR' && !txt.trim());
+        if (n.nodeName === 'BR' || estEspace) { mot = null; return; }
+        if (!mot) {
+          mot = document.createElement('span');
+          mot.className = 'mpp-mot';
+          bloc.insertBefore(mot, n);
+        }
+        mot.appendChild(n);
+      });
+    });
+  };
+  // Le découpage n'a lieu qu'au défilement jusqu'à la section : on surveille le
+  // bloc et on regroupe dès qu'il est découpé, plutôt que de deviner le moment.
+  reparerCoupures();
+  document.querySelectorAll('.split-text').forEach((bloc) => {
+    new MutationObserver(() => reparerCoupures()).observe(bloc, { childList: true });
+  });
+
   // ─── Pilule réseaux : révélée tout de suite ───────────────────────────────
   // Le site d'origine la garde en opacity:0 / translateX(-80px) jusqu'à ce que
   // playEntryAnimation() lui pose .visible — via setTimeout(300) PUIS en fin de

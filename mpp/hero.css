@@ -79,6 +79,10 @@ html[data-hero-text='blanc']   { --hero-text: #ffffff; }
   .mpp-hero-img { transform: translateY(-50%) !important; }
 }
 
+/* Groupe de caractères formant un mot (posé par hero.js sur les .split-text) :
+   insécable, donc plus aucune coupure au milieu d'un mot. */
+.mpp-mot { display: inline-block; white-space: nowrap; }
+
 /* ═══════════════════════════════════════════════════════════════════════════
    COMPOSITION DU HERO (d'après le croquis de Brian)
    La section est PLUS HAUTE que la fenêtre : elle déborde en bas, le hero n'est
