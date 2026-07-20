@@ -1,2 +1,19 @@
+# Secrets — ne jamais commiter
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependances
+node_modules/
+
+# Logs
 mpp/*.log
+*.log
+
+# OS / editeurs
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
