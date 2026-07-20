@@ -58,7 +58,7 @@
     return restants;
   };
 
-  fetch('/mpp/data.json')
+  fetch('mpp/data.json')
     .then((r) => r.json())
     .then((d) => {
       const conf = d && d.icones;
