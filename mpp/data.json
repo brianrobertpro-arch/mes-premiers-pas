@@ -23,5 +23,22 @@
       "catchUp": 2.4,
       "colors": ["#d9dd7e", "#8195c2", "#8985d5", "#e8a248", "#c14c7c", "#eeefa2"]
     }
+  },
+  "icones": {
+    "_lisezmoi": "Remplace les icônes actuelles par les aquarelles hébergées sur R2 (bucket public). Chaque entrée cible une icône par sa 'cle' = un fragment UNIQUE de son URL actuelle (le préfixe de hash Webflow) ; le script /mpp/icones.js pose alors base + fichier à la place. FILET DE SÉCURITÉ : si l'aquarelle ne se charge pas (nom de fichier faux, réseau…), l'icône d'origine est restaurée automatiquement — jamais d'image cassée. Pour corriger un nom : change simplement 'fichier'. Pour désactiver une entrée : mets 'actif' à false.",
+    "base": "https://pub-b62969cb28c74eaa82f2cc05d4ae9428.r2.dev/mpp/icones/",
+    "remplacements": [
+      { "_zone": "Valeurs — page d'accueil (index.html)", "element": "L'enfant au cœur de priorité", "cle": "69bebe1ed73ae9c20b58d03d", "fichier": "valeur-enfant.png", "actif": true },
+      { "_zone": "Valeurs — page d'accueil (index.html)", "element": "Le respect de l'être humain", "cle": "69bebe1ee7e73e30c76d6a8b", "fichier": "valeur-respect.png", "actif": true },
+      { "_zone": "Valeurs — page d'accueil (index.html)", "element": "La bienveillance", "cle": "69bebe1ec76cdbe1cd93732b", "fichier": "valeur-bienveillance.png", "actif": true },
+      { "_zone": "Valeurs — page d'accueil (index.html)", "element": "La communication", "cle": "69bebe1e0152fd73dcea1380", "fichier": "valeur-communication.png", "actif": true },
+      { "_zone": "Valeurs — page d'accueil (index.html)", "element": "Le respect de l'environnement", "cle": "69bebe1e14ee8525041e931a", "fichier": "valeur-environnement.png", "actif": true },
+
+      { "_zone": "Valeurs — page À propos (about.html)", "element": "L'enfant au cœur de priorité", "cle": "69c68f0100d6952e32d51c41", "fichier": "valeur-enfant.png", "actif": true },
+      { "_zone": "Valeurs — page À propos (about.html)", "element": "Le respect de l'être humain", "cle": "69c68f017be6bec9536b3b14", "fichier": "valeur-respect.png", "actif": true },
+      { "_zone": "Valeurs — page À propos (about.html)", "element": "La communication", "cle": "69c68f013f91f95491226060", "fichier": "valeur-communication.png", "actif": true },
+      { "_zone": "Valeurs — page À propos (about.html)", "element": "La bienveillance", "cle": "69c68f012406bb20ad962bd1", "fichier": "valeur-bienveillance.png", "actif": true },
+      { "_zone": "Valeurs — page À propos (about.html)", "element": "Le respect de l'environnement", "cle": "69c68f01c0870e10f53cb4d3", "fichier": "valeur-environnement.png", "actif": true }
+    ]
   }
 }
