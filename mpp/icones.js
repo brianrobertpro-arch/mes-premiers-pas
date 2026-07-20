@@ -66,9 +66,14 @@
       'img[data-mpp-icone="aquarelle"],image[data-mpp-icone="aquarelle"]{' +
       'background:transparent !important;box-shadow:none !important;' +
       'border:none !important;border-radius:0 !important;}' +
-      '.mpp-totem{opacity:1 !important;mix-blend-mode:normal !important;' +
-      'filter:none !important;object-fit:contain;' +
-      'transform:scale(1.45);transform-origin:center;}';
+      // Totems du footer : agrandis et poussés DERRIÈRE le contenu (z-index +
+      // pointer-events:none). NB : leur fond blanc est INCRUSTÉ dans le PNG ;
+      // seul un détourage à la source (R2) l'enlève — aucune astuce CSS ne le
+      // retire de façon fiable dans ce calque isolé.
+      '.mpp-totem{opacity:1 !important;filter:none !important;object-fit:contain;' +
+      'transform:scale(1.45);transform-origin:center;' +
+      'z-index:0 !important;pointer-events:none !important;}' +
+      '.content-footer{position:relative;z-index:2;}';
     (document.head || document.documentElement).appendChild(st);
   };
 
