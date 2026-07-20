@@ -38,6 +38,14 @@
     sonde.src = url;
   };
 
+  // Masque un élément (sticker retiré) sans le supprimer du DOM.
+  const masquer = (img) => {
+    if (traites.has(img)) return;
+    traites.add(img);
+    img.style.display = 'none';
+    img.dataset.mppIcone = 'masque';
+  };
+
   const appliquer = () => {
     if (!regles) return 0;
     let restants = 0;
@@ -45,7 +53,7 @@
       if (!r.actif) return;
       const imgs = document.querySelectorAll(`img[src*="${r.cle}"]:not([data-mpp-icone])`);
       if (!imgs.length) restants++;              // pas encore dans le DOM
-      imgs.forEach((img) => poser(img, r.url));
+      imgs.forEach((img) => (r.masquer ? masquer(img) : poser(img, r.url)));
     });
     return restants;
   };
@@ -57,8 +65,13 @@
       if (!conf || !Array.isArray(conf.remplacements)) return;
       const base = conf.base || '';
       regles = conf.remplacements
-        .filter((e) => e && e.cle && e.fichier)
-        .map((e) => ({ cle: e.cle, url: base + e.fichier, actif: e.actif !== false }));
+        .filter((e) => e && e.cle && (e.fichier || e.masquer))
+        .map((e) => ({
+          cle: e.cle,
+          url: base + (e.fichier || ''),
+          masquer: !!e.masquer,
+          actif: e.actif !== false,
+        }));
 
       appliquer();
       // Le DOM peut être complété après coup (scripts Webflow, carrousels…) :
