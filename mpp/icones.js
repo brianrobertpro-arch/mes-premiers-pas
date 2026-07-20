@@ -18,7 +18,7 @@
   let regles = null;      // [{ cle, url, actif }]
   const traites = new WeakSet();
 
-  const poser = (img, url) => {
+  const poser = (img, url, classe) => {
     if (traites.has(img)) return;
     traites.add(img);
     // FILET : on précharge l'aquarelle dans une image détachée. On ne remplace
@@ -29,6 +29,7 @@
       img.setAttribute('src', url);
       // srcset de Webflow prendrait le pas sur src : on le neutralise.
       if (img.hasAttribute('srcset')) img.removeAttribute('srcset');
+      if (classe) img.classList.add(classe);
       img.dataset.mppIcone = 'aquarelle';
     };
     sonde.onerror = () => {
@@ -36,6 +37,19 @@
       img.dataset.mppIcone = 'origine';
     };
     sonde.src = url;
+  };
+
+  // Style des totems du footer : détourés (fond transparent, sans voile ni
+  // fondu décoratif) et un peu plus grands que les anciens stickers.
+  const injecterStyle = () => {
+    if (document.getElementById('mpp-icones-style')) return;
+    const st = document.createElement('style');
+    st.id = 'mpp-icones-style';
+    st.textContent =
+      '.mpp-totem{opacity:1 !important;background:transparent !important;' +
+      'mix-blend-mode:normal !important;filter:none !important;' +
+      'object-fit:contain;transform:scale(1.45);transform-origin:center;}';
+    (document.head || document.documentElement).appendChild(st);
   };
 
   // Masque un élément (sticker retiré) sans le supprimer du DOM.
@@ -53,7 +67,7 @@
       if (!r.actif) return;
       const imgs = document.querySelectorAll(`img[src*="${r.cle}"]:not([data-mpp-icone])`);
       if (!imgs.length) restants++;              // pas encore dans le DOM
-      imgs.forEach((img) => (r.masquer ? masquer(img) : poser(img, r.url)));
+      imgs.forEach((img) => (r.masquer ? masquer(img) : poser(img, r.url, r.classe)));
     });
     return restants;
   };
@@ -70,9 +84,11 @@
           cle: e.cle,
           url: base + (e.fichier || ''),
           masquer: !!e.masquer,
+          classe: e.classe || '',
           actif: e.actif !== false,
         }));
 
+      injecterStyle();
       appliquer();
       // Le DOM peut être complété après coup (scripts Webflow, carrousels…) :
       // on ré-applique un court moment, puis on s'arrête.
