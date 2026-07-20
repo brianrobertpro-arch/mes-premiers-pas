@@ -49,10 +49,10 @@
       { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "6 · Le temps du goûter", "cle": "69cd21ebde32c85603dfae34", "fichier": "horaire-15h00.png", "actif": true },
       { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "7 · Le départ des enfants", "cle": "69bec94ac744e5290c3f341a", "fichier": "horaire-16h00.png", "actif": true },
 
-      { "_zone": "Footer — 4 TOTEMS à la place des anciens stickers (toutes les pages). L'ordre des totems dans les 4 emplacements est décoratif : échange les 'fichier' pour les replacer.", "element": "Emplacement fleur (haut-gauche)", "cle": "69c15571e761ada20645438e", "fichier": "totem-foret.png", "actif": true },
-      { "_zone": "Footer — 4 TOTEMS", "element": "Emplacement escargot (droite)", "cle": "69c155715d9c95716b8137de", "fichier": "totem-savane.png", "actif": true },
-      { "_zone": "Footer — 4 TOTEMS", "element": "Emplacement nuage (bas-gauche)", "cle": "69c155718348a1b5b04fe647", "fichier": "totem-ocean.png", "actif": true },
-      { "_zone": "Footer — 4 TOTEMS", "element": "Emplacement cookie (bas-centre)", "cle": "69c155719fab445a3b6a2e2c", "fichier": "totem-montagne.png", "actif": true },
+      { "_zone": "Footer — 4 TOTEMS à la place des anciens stickers (toutes les pages). L'ordre des totems dans les 4 emplacements est décoratif : échange les 'fichier' pour les replacer. La classe 'mpp-totem' les détoure (fond transparent) et les agrandit.", "element": "Emplacement fleur (haut-gauche)", "cle": "69c15571e761ada20645438e", "fichier": "totem-foret.png", "classe": "mpp-totem", "actif": true },
+      { "_zone": "Footer — 4 TOTEMS", "element": "Emplacement escargot (droite)", "cle": "69c155715d9c95716b8137de", "fichier": "totem-savane.png", "classe": "mpp-totem", "actif": true },
+      { "_zone": "Footer — 4 TOTEMS", "element": "Emplacement nuage (bas-gauche)", "cle": "69c155718348a1b5b04fe647", "fichier": "totem-ocean.png", "classe": "mpp-totem", "actif": true },
+      { "_zone": "Footer — 4 TOTEMS", "element": "Emplacement cookie (bas-centre)", "cle": "69c155719fab445a3b6a2e2c", "fichier": "totem-montagne.png", "classe": "mpp-totem", "actif": true },
 
       { "_zone": "Footer — anciens stickers RETIRÉS (pingouin, goutte, note de musique)", "element": "Pingouin (retiré)", "cle": "69c1557141536e17ad05b025", "masquer": true, "actif": true },
       { "_zone": "Footer — anciens stickers RETIRÉS", "element": "Goutte d'eau (retirée)", "cle": "69c155716cfbb1692619c696", "masquer": true, "actif": true },
