@@ -38,7 +38,16 @@
       { "_zone": "Valeurs — page À propos (about.html)", "element": "Le respect de l'être humain", "cle": "69c68f017be6bec9536b3b14", "fichier": "valeur-respect.png", "actif": true },
       { "_zone": "Valeurs — page À propos (about.html)", "element": "La communication", "cle": "69c68f013f91f95491226060", "fichier": "valeur-communication.png", "actif": true },
       { "_zone": "Valeurs — page À propos (about.html)", "element": "La bienveillance", "cle": "69c68f012406bb20ad962bd1", "fichier": "valeur-bienveillance.png", "actif": true },
-      { "_zone": "Valeurs — page À propos (about.html)", "element": "Le respect de l'environnement", "cle": "69c68f01c0870e10f53cb4d3", "fichier": "valeur-environnement.png", "actif": true }
+      { "_zone": "Valeurs — page À propos (about.html)", "element": "Le respect de l'environnement", "cle": "69c68f01c0870e10f53cb4d3", "fichier": "valeur-environnement.png", "actif": true },
+
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "0 · L'accueil et l'arrivée des enfants", "cle": "69cd21ea70198b12afed6642", "fichier": "horaire-accueil.png", "actif": true },
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "1 · Le temps de rassemblement", "cle": "69bec94b1e6800d62f4628fe", "fichier": "horaire-rassemblement.png", "actif": true },
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "2 · Activités", "cle": "69bec94bf83d2b51ab469bbf", "fichier": "horaire-activites.png", "actif": true },
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "3 · Le temps repas", "cle": "69bec94af263a1e66d5eb31a", "fichier": "horaire-repas.png", "actif": true },
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "4 · Soin et moment cocooning", "cle": "69bec94be8bb9ae44a57be64", "fichier": "horaire-soin.png", "actif": true },
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "5 · La Sieste", "cle": "69bec94ae686617a126497d9", "fichier": "horaire-sieste.png", "actif": true },
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "6 · Le temps du goûter", "cle": "69cd21ebde32c85603dfae34", "fichier": "horaire-gouter.png", "actif": true },
+      { "_zone": "Journée type — diagramme (index.html + journee-type.html), ordre chronologique", "element": "7 · Le départ des enfants", "cle": "69bec94ac744e5290c3f341a", "fichier": "horaire-depart.png", "actif": true }
     ]
   }
 }
