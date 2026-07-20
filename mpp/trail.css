@@ -36,8 +36,8 @@
      JS tarde — donc jamais invisible pour une raison de timing. */
   width: 34px;
   height: 51px;
-  -webkit-mask: url(/mpp/empreinte.svg) center / contain no-repeat;
-  mask: url(/mpp/empreinte.svg) center / contain no-repeat;
+  -webkit-mask: url(empreinte.svg) center / contain no-repeat;
+  mask: url(empreinte.svg) center / contain no-repeat;
   opacity: 0;
   /* Transition COURTE : elle lisse la quantification entre frames sans découpler
      l'apparition du scroll. Le pilotage réel se fait image par image en JS. */
