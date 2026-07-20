@@ -39,16 +39,24 @@
     sonde.src = url;
   };
 
-  // Style des totems du footer : détourés (fond transparent, sans voile ni
-  // fondu décoratif) et un peu plus grands que les anciens stickers.
+  // Style des icônes aquarelle. Deux volets :
+  // 1) TOUTES les icônes remplacées : on retire tout cadre/fond que le CSS
+  //    d'origine posait derrière l'image (ombre, coins arrondis, bordure, fond)
+  //    — ex. .image-21 { border-radius; box-shadow } de la journée type — pour
+  //    que l'illustration détourée se pose à plat sur la section (pas de
+  //    vignette). NB : si un PNG a un fond incrusté, seul son détourage à la
+  //    source (R2) l'enlève ; ceci ne retire que le cadre ajouté par le CSS.
+  // 2) Totems du footer : détourés + un peu plus grands que les anciens stickers.
   const injecterStyle = () => {
     if (document.getElementById('mpp-icones-style')) return;
     const st = document.createElement('style');
     st.id = 'mpp-icones-style';
     st.textContent =
-      '.mpp-totem{opacity:1 !important;background:transparent !important;' +
-      'mix-blend-mode:normal !important;filter:none !important;' +
-      'object-fit:contain;transform:scale(1.45);transform-origin:center;}';
+      'img[data-mpp-icone="aquarelle"]{background:transparent !important;' +
+      'box-shadow:none !important;border:none !important;border-radius:0 !important;}' +
+      '.mpp-totem{opacity:1 !important;mix-blend-mode:normal !important;' +
+      'filter:none !important;object-fit:contain;' +
+      'transform:scale(1.45);transform-origin:center;}';
     (document.head || document.documentElement).appendChild(st);
   };
 
