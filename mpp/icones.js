@@ -18,23 +18,34 @@
   let regles = null;      // [{ cle, url, actif }]
   const traites = new WeakSet();
 
-  const poser = (img, url, classe) => {
-    if (traites.has(img)) return;
-    traites.add(img);
+  const XLINK = 'http://www.w3.org/1999/xlink';
+
+  const poser = (el, url, classe) => {
+    if (traites.has(el)) return;
+    traites.add(el);
+    // Deux types de cibles : les <img> HTML (valeurs, footer) ET les <image>
+    // SVG du diagramme « journée type » (le diagramme radial référence ses
+    // illustrations via href / xlink:href, pas via src).
+    const estSvgImage = el.tagName && el.tagName.toLowerCase() === 'image';
     // FILET : on précharge l'aquarelle dans une image détachée. On ne remplace
     // l'icône visible QUE si elle se charge vraiment → aucune image cassée, même
     // pour les icônes en `loading="lazy"` situées plus bas dans la page.
     const sonde = new Image();
     sonde.onload = () => {
-      img.setAttribute('src', url);
-      // srcset de Webflow prendrait le pas sur src : on le neutralise.
-      if (img.hasAttribute('srcset')) img.removeAttribute('srcset');
-      if (classe) img.classList.add(classe);
-      img.dataset.mppIcone = 'aquarelle';
+      if (estSvgImage) {
+        el.setAttribute('href', url);                 // SVG2
+        el.setAttributeNS(XLINK, 'href', url);        // SVG 1.1 (xlink)
+      } else {
+        el.setAttribute('src', url);
+        // srcset de Webflow prendrait le pas sur src : on le neutralise.
+        if (el.hasAttribute('srcset')) el.removeAttribute('srcset');
+      }
+      if (classe) el.classList.add(classe);
+      el.dataset.mppIcone = 'aquarelle';
     };
     sonde.onerror = () => {
       // Aquarelle indisponible : on garde l'icône d'origine, on marque « traité ».
-      img.dataset.mppIcone = 'origine';
+      el.dataset.mppIcone = 'origine';
     };
     sonde.src = url;
   };
@@ -52,8 +63,9 @@
     const st = document.createElement('style');
     st.id = 'mpp-icones-style';
     st.textContent =
-      'img[data-mpp-icone="aquarelle"]{background:transparent !important;' +
-      'box-shadow:none !important;border:none !important;border-radius:0 !important;}' +
+      'img[data-mpp-icone="aquarelle"],image[data-mpp-icone="aquarelle"]{' +
+      'background:transparent !important;box-shadow:none !important;' +
+      'border:none !important;border-radius:0 !important;}' +
       '.mpp-totem{opacity:1 !important;mix-blend-mode:normal !important;' +
       'filter:none !important;object-fit:contain;' +
       'transform:scale(1.45);transform-origin:center;}';
@@ -73,9 +85,14 @@
     let restants = 0;
     regles.forEach((r) => {
       if (!r.actif) return;
-      const imgs = document.querySelectorAll(`img[src*="${r.cle}"]:not([data-mpp-icone])`);
-      if (!imgs.length) restants++;              // pas encore dans le DOM
-      imgs.forEach((img) => (r.masquer ? masquer(img) : poser(img, r.url, r.classe)));
+      // Cible les <img> (src) ET les <image> SVG (href et xlink:href).
+      const sel =
+        `img[src*="${r.cle}"]:not([data-mpp-icone]),` +
+        `image[href*="${r.cle}"]:not([data-mpp-icone]),` +
+        `image[*|href*="${r.cle}"]:not([data-mpp-icone])`;
+      const cibles = document.querySelectorAll(sel);
+      if (!cibles.length) restants++;              // pas encore dans le DOM
+      cibles.forEach((el) => (r.masquer ? masquer(el) : poser(el, r.url, r.classe)));
     });
     return restants;
   };
