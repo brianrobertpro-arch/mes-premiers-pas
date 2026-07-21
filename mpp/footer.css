@@ -1,0 +1,137 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MPP — REFONTE DU FOOTER (scène animée : téléphone + totems + CONTACT)
+   Construit par étapes. Chargé uniquement sur la page d'accueil.
+
+   ÉTAPE 1 — le téléphone (SVG) : pièce maîtresse, centre-gauche de la scène.
+   Palette DA : encre #1b1b1b, crème écran #ebe6d4, lime #d9dd7e, orange #e8a248.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Fond bleu du footer (comme avant la refonte : var(--_couleurs---c-bleu)).
+   Fixé explicitement car la variable Webflow ne se résout pas partout. */
+.footer-section { background-color: #8195c2 !important; }
+
+.footer-scene {
+  /* raccourcis palette pour la scène */
+  --ink: #1b1b1b;
+  --cream: #ebe6d4;
+  --lime: #d9dd7e;
+  --orange: #e8a248;
+  --rose: #c14c7c;
+  --bleu: #8195c2;
+
+  position: relative;
+  z-index: 2;                         /* au-dessus du fond / totems */
+  box-sizing: border-box;
+  min-height: clamp(520px, 72vh, 760px);
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+  padding: clamp(32px, 6vh, 72px) clamp(20px, 6vw, 90px);
+}
+
+/* ─── LE TÉLÉPHONE ─────────────────────────────────────────────────────────
+   Ratio type iPhone (320 × 660). Hauteur ≈ 60-70 % de la section, responsive. */
+.footer-phone {
+  position: relative;
+  flex: 0 0 auto;
+  height: clamp(360px, 62vh, 560px);
+  aspect-ratio: 320 / 660;
+}
+
+.footer-phone__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 18px 40px rgba(27, 27, 27, 0.18));
+}
+
+/* L'écran = calque HTML posé sur la zone d'écran du SVG (voir viewBox 320×660 :
+   écran x22→298, y22→638). Il accueillera le contenu Insta/FB (étape 2). */
+.footer-phone__screen {
+  position: absolute;
+  left: 6.9%;
+  top: 3.35%;
+  width: 86.25%;
+  height: 93.3%;
+  border-radius: 13% / 6.4%;
+  overflow: hidden;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;                 /* contexte d'empilement propre à l'écran */
+}
+
+/* Dynamic island : pastille encre centrée en haut, toujours au-dessus du contenu. */
+.footer-phone__island {
+  position: absolute;
+  top: 2.2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32%;
+  height: 2.5%;
+  min-height: 14px;
+  background: var(--ink);
+  border-radius: 999px;
+  z-index: 3;
+}
+
+/* Barre de statut iOS : heure à gauche, réseau/wifi/batterie à droite. Discrète. */
+.footer-phone__statusbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3.5% 8% 1.5%;
+  color: var(--ink);
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(10px, 1.5vh, 13px);
+  z-index: 2;
+}
+.footer-phone__statusbar .sb-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.footer-phone__statusbar .sb-icons svg { display: block; height: 0.9em; width: auto; }
+
+/* Zone de contenu de l'écran (Insta/FB à l'étape 2). */
+.footer-phone__content {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+/* ─── Ancien footer masqué pendant la refonte ─────────────────────────────
+   Le contenu social + les stickers physiques d'origine sont retirés
+   visuellement (les totems reviennent, placés autour du téléphone, à l'étape 4 ;
+   le CONTACT est reconstruit dans la scène à l'étape 5). */
+.footer-section .content-footer { display: none !important; }
+.footer-section .photo-deco { display: none !important; }
+
+/* Ligne d'infos existante (adresse, ©, crédit) : conservée, posée en bas.
+   Texte clair pour rester lisible sur le fond bleu. */
+.footer-section .informations-complementaire {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px clamp(18px, 3vh, 32px);
+}
+.footer-section .informations-complementaire .ff-footer { color: #f4f1e6; }
+
+/* ─── Responsive : mobile → téléphone plus petit, scène centrée ───────────── */
+@media (max-width: 767px) {
+  .footer-scene {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(20px, 5vh, 40px);
+    min-height: 0;
+    padding: clamp(28px, 6vh, 48px) 20px;
+  }
+  .footer-phone { height: clamp(320px, 56vh, 440px); }
+}
+
+/* prefers-reduced-motion : géré au fil des étapes animées (2 et 5). */
