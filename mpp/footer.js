@@ -166,9 +166,38 @@
           boutons[r] && boutons[r].classList.toggle('is-active', r === net)),
       };
 
+      // ── Coordonnées CONTACT depuis data.json (étape 5) ──
+      const c = (d && d.footer && d.footer.contact) || {};
+      const ul = scene.querySelector('.footer-contact__list');
+      if (ul && !ul.children.length) {
+        const tel = (n) => 'tel:+33' + String(n).replace(/\D/g, '').replace(/^0/, '');
+        const lignes = [];
+        if (c.email) {
+          const href = c.emailHref || ('mailto:' + c.email);
+          const ext = c.emailHref ? ' target="_blank" rel="noopener"' : '';
+          lignes.push('<a href="' + href + '"' + ext + '>' + c.email + '</a>');
+        }
+        if (c.telVers) lignes.push('<span class="fc-label">Vers :</span><a href="' + tel(c.telVers) + '">' + c.telVers + '</a>');
+        if (c.telValleiry) lignes.push('<span class="fc-label">Valleiry (siège social) :</span><a href="' + tel(c.telValleiry) + '">' + c.telValleiry + '</a>');
+        ul.innerHTML = lignes.map((h) => '<li class="fc-line">' + h + '</li>').join('');
+      }
+
       montrer('instagram', true);                  // vue initiale
       window.mppButtons.sync(etat.actif);          // pastille initiale
       if (!reduit) { requestAnimationFrame(driver); relancer(); }
+
+      // ── Chorégraphie d'entrée : une seule timeline (téléphone → CONTACT →
+      //    cascade des coordonnées), déclenchée à l'entrée dans le viewport.
+      scene.classList.add('anim-ready');
+      const lancer = () => scene.classList.add('is-in');
+      if (reduit || !('IntersectionObserver' in window)) {
+        lancer();
+      } else {
+        const io = new IntersectionObserver((ents) => {
+          ents.forEach((e) => { if (e.isIntersecting) { lancer(); io.disconnect(); } });
+        }, { threshold: 0.25 });
+        io.observe(scene);
+      }
     })
     .catch((e) => console.error('[mpp-footer]', e));
  };
