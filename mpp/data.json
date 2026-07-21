@@ -58,5 +58,26 @@
       { "_zone": "Footer — anciens stickers RETIRÉS", "element": "Goutte d'eau (retirée)", "cle": "69c155716cfbb1692619c696", "masquer": true, "actif": true },
       { "_zone": "Footer — anciens stickers RETIRÉS", "element": "Note de musique (retirée)", "cle": "69c155722ab4431e573bfe32", "masquer": true, "actif": true }
     ]
+  },
+  "footer": {
+    "_lisezmoi": "Refonte du footer (page d'accueil). Les tableaux phone.instagram / phone.facebook = images qui défilent dans l'écran du téléphone, par réseau. Remplace ces chemins par tes vraies photos (fichiers locaux dans mpp/img/ ou URLs complètes) — l'ordre = ordre d'affichage. Placeholders actuels = visuels d'ambiance du site. contact = coordonnées affichées en cascade dans le bloc CONTACT.",
+    "phone": {
+      "instagram": [
+        "mpp/img/hero-cuisine.jpg",
+        "mpp/img/hero-maquillage.jpg",
+        "mpp/img/hero-chemin.jpg"
+      ],
+      "facebook": [
+        "mpp/img/hero-maquillage.jpg",
+        "mpp/img/hero-chemin.jpg",
+        "mpp/img/hero-cuisine.jpg"
+      ]
+    },
+    "contact": {
+      "email": "info.mespremierspas@gmail.com",
+      "emailHref": "https://www.mespremierspas.net/",
+      "telVers": "04 50 16 19 29",
+      "telValleiry": "04 50 83 99 94"
+    }
   }
 }
