@@ -199,6 +199,43 @@
   .fp-img { transform: scale(1.05); }
 }
 
+/* ─── ÉTAPE 3 — boutons réseaux synchronisés avec l'écran ─────────────────
+   Vert pomme (fichiers -footer.svg, trait épaissi). Posés près du téléphone.
+   La pastille active suit la vue affichée ; le survol verrouille l'écran. */
+.footer-social {
+  position: absolute;
+  right: -13%;
+  bottom: 12%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.8vh, 20px);
+  z-index: 4;
+}
+.fsoc {
+  width: clamp(46px, 7.2vh, 66px);
+  height: clamp(46px, 7.2vh, 66px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  transform: scale(1);
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease;
+}
+.fsoc img { width: 66%; height: 66%; object-fit: contain; display: block; }
+/* Pastille « active » (réseau affiché à l'écran) — dans la DA. */
+.fsoc.is-active {
+  background: #ebe6d4;
+  box-shadow: 0 8px 20px rgba(27, 27, 27, 0.22);
+  transform: scale(1.09);
+}
+.fsoc:hover { transform: scale(1.13); }
+.fsoc:focus-visible { outline: 2px solid #ebe6d4; outline-offset: 3px; }
+
+@media (max-width: 767px) {
+  .footer-social { right: auto; left: 50%; bottom: -7%; flex-direction: row; transform: translateX(-50%); }
+}
+
 /* ─── Ancien footer masqué pendant la refonte ─────────────────────────────
    Le contenu social + les stickers physiques d'origine sont retirés
    visuellement (les totems reviennent, placés autour du téléphone, à l'étape 4 ;

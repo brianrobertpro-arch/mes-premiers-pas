@@ -149,7 +149,25 @@
         semer(v.querySelector('.fp-img'));
         avancerImage(r, true);                     // première image
       });
+      // ── Boutons réseaux synchronisés + verrouillage au survol (étape 3) ──
+      const boutons = {};
+      scene.querySelectorAll('.footer-social .fsoc').forEach((b) => {
+        const net = b.dataset.net;
+        if (!RESEAUX.includes(net)) return;
+        boutons[net] = b;
+        // Survol / focus = verrou sur ce réseau ; sortie = reprise de l'alternance.
+        b.addEventListener('mouseenter', () => window.mppPhone.lock(net));
+        b.addEventListener('mouseleave', () => window.mppPhone.unlock());
+        b.addEventListener('focus', () => window.mppPhone.lock(net));
+        b.addEventListener('blur', () => window.mppPhone.unlock());
+      });
+      window.mppButtons = {
+        sync: (net) => RESEAUX.forEach((r) =>
+          boutons[r] && boutons[r].classList.toggle('is-active', r === net)),
+      };
+
       montrer('instagram', true);                  // vue initiale
+      window.mppButtons.sync(etat.actif);          // pastille initiale
       if (!reduit) { requestAnimationFrame(driver); relancer(); }
     })
     .catch((e) => console.error('[mpp-footer]', e));
