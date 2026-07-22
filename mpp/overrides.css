@@ -338,3 +338,43 @@ html[data-nav='closed'] .mpp-menu-badge {
   .mpp-menu-badge:hover, .mpp-menu-badge:active { transform: translateX(-50%); }
   .mpp-nav-close:hover .mpp-nav-close__arrow { transform: none; }
 }
+
+/* ═══ Footer — cascade CONTACT (révélation au scroll) ══════════════════════
+   Le bloc « Contact » se révèle ligne par ligne quand le footer entre à
+   l'écran, calé sur la cascade du hero : pas de 130 ms, easing signature,
+   fondu 480 ms. La classe .is-revealed est posée par mpp/overrides.js.
+   Ordre : titre « Contact » → e-mail → téléphone « Vers » → siège social.
+   Neutralisé sous prefers-reduced-motion (état final visible, sans mouvement). */
+.footer-section .contact .heading-6,
+.footer-section .contact .block-quote,
+.footer-section .contact .paragraph,
+.footer-section .contact .paragraph-2 {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.footer-section .contact.is-revealed .heading-6,
+.footer-section .contact.is-revealed .block-quote,
+.footer-section .contact.is-revealed .paragraph,
+.footer-section .contact.is-revealed .paragraph-2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+.footer-section .contact.is-revealed .heading-6   { transition-delay: 0ms;   }
+.footer-section .contact.is-revealed .block-quote { transition-delay: 130ms; }
+.footer-section .contact.is-revealed .paragraph   { transition-delay: 260ms; }
+.footer-section .contact.is-revealed .paragraph-2 { transition-delay: 390ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-section .contact .heading-6,
+  .footer-section .contact .block-quote,
+  .footer-section .contact .paragraph,
+  .footer-section .contact .paragraph-2 {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+}

@@ -147,3 +147,38 @@
     setTimeout(() => clearInterval(iv), 5000);
   }
 })();
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MPP — FOOTER : cascade du bloc CONTACT.
+   Pose .is-revealed sur .contact quand le footer entre à l'écran ; le CSS
+   (mpp/overrides.css) fait monter et révéler ses lignes en cascade (130 ms,
+   easing signature). État final visible d'emblée sous prefers-reduced-motion,
+   et repli immédiat si IntersectionObserver n'est pas disponible.
+   Aucun toucher aux stickers/totems ni à la physique Matter.js du footer.
+   ═══════════════════════════════════════════════════════════════════════════ */
+(() => {
+  const brancher = () => {
+    const contact = document.querySelector('.footer-section .contact');
+    if (!contact) return false;
+
+    const reveler = () => contact.classList.add('is-revealed');
+
+    // Mouvement réduit ou pas d'IntersectionObserver : on révèle tout de suite,
+    // sans attendre le scroll (le CSS a déjà neutralisé la transition si réduit).
+    const reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduit || !('IntersectionObserver' in window)) { reveler(); return true; }
+
+    const io = new IntersectionObserver((entrees, obs) => {
+      entrees.forEach((e) => {
+        if (e.isIntersecting) { reveler(); obs.disconnect(); }
+      });
+    }, { threshold: 0.35 });
+    io.observe(contact);
+    return true;
+  };
+
+  if (!brancher()) {
+    const iv = setInterval(() => { if (brancher()) clearInterval(iv); }, 60);
+    setTimeout(() => clearInterval(iv), 5000);
+  }
+})();
