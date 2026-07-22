@@ -31,7 +31,7 @@
     // navigateur re-sélectionne l'image d'origine et annule le détourage.
     img.removeAttribute('srcset');
     img.removeAttribute('sizes');
-    img.setAttribute('src', '/mpp/logo-trim.png');
+    img.setAttribute('src', 'mpp/logo-trim.png');
     // Navbar hors écran à l'arrivée → l'image lazy ne se chargerait jamais.
     img.loading = 'eager';
     if (!nav.id) nav.id = 'mpp-navbar';
@@ -44,7 +44,7 @@
       badge.className = 'mpp-menu-badge';
       badge.setAttribute('aria-controls', nav.id);
       badge.innerHTML =
-        '<img class="mpp-menu-badge__feet" src="/mpp/empreintes.png" alt="">' +
+        '<img class="mpp-menu-badge__feet" src="mpp/empreintes.png" alt="">' +
         '<span class="mpp-menu-badge__label">MENU</span>';
       document.body.appendChild(badge);
     }

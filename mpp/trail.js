@@ -20,7 +20,7 @@
   const html = document.documentElement;
   if (!document.querySelector('.hero-section.main')) return;   // accueil seulement
 
-  fetch('/mpp/data.json')
+  fetch('mpp/data.json')
     .then((r) => r.json())
     .then((d) => construire((d && d.home && d.home.trail) || null))
     .catch((e) => console.error('[mpp-trail]', e));
