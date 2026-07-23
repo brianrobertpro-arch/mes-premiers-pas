@@ -558,7 +558,7 @@ body.no-navbar-padding {
 >
   <source src="https://res.cloudinary.com/dqtzepvtk/video/upload/v1774443955/Cr%C3%A9ation_de_vid%C3%A9o_p%C3%A9dagogique_sur_la_cr%C3%A8che_wowyl4.mp4" type="video/mp4">
 </video></div></div><div class="content-right"><div class="div-button"><a data-w-id="90ff2454-7ce5-7549-f7fa-b3b250c27ca1" href="#" class="button type1 ip foret w-button">Infos pratique</a><a data-w-id="b08e21f3-11d6-c4c4-ee3b-469b2070bf70" href="#" class="button type1 pp foret w-button">Projet pédagogique</a></div><div class="w-embed w-script"><div class="spiral-container" id="spiral-wrapper">
-  <img id="spiral" src="assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/69c3e88689f74d48c4d96e29_Shape-Spiral--Streamline-Organic.svg" alt="" class="spiral">
+  <img id="spiral" src="https://pub-b62969cb28c74eaa82f2cc05d4ae9428.r2.dev/mpp/icones/totem-foret.png" alt="Totem animal de la crèche Vers Forêt" class="spiral">
 </div>
 <style>
 .content-right {
@@ -574,9 +574,22 @@ body.no-navbar-padding {
 }
 .spiral {
   width: 120px;
-  height: auto;
+  height: 120px;
+  object-fit: contain;
   position: absolute;
   left: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .spiral.roll-to-right {
+    animation: none !important;
+    left: calc(100% - 120px);
+    transform: rotate(720deg);
+  }
+  .spiral.roll-to-left {
+    animation: none !important;
+    left: 0;
+    transform: rotate(0deg);
+  }
 }
 .spiral.roll-to-right {
   animation: rollRight 1.2s ease-in-out forwards;
@@ -616,8 +629,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnInfos = document.querySelector('.button.type1.ip');
     const spiral = document.getElementById('spiral');
     
-    const spiralPurple = 'assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/69c3e88b3591bec4484f66da_Shape-Spiral--Streamline-Organic-purple.svg';
-    const spiralOrange = 'assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/69c3e88689f74d48c4d96e29_Shape-Spiral--Streamline-Organic.svg';
+    const spiralPurple = 'https://pub-b62969cb28c74eaa82f2cc05d4ae9428.r2.dev/mpp/icones/totem-foret.png';
+    const spiralOrange = 'https://pub-b62969cb28c74eaa82f2cc05d4ae9428.r2.dev/mpp/icones/totem-foret.png';
     
     let currentPosition = 'left';
     
