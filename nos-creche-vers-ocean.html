@@ -549,7 +549,7 @@ body.no-navbar-padding {
 }
 </style><style>.w-webflow-badge{display:none!important}</style>
   <link rel="stylesheet" href="mpp/overrides.css">
-</head><body><div class="page-wrapper"><div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-2 w-nav"><div class="container w-container"><div class="navbar-gauche"><img src="assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo.png" loading="lazy" sizes="100vw" srcset="assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo-p-500.png 500w, assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo-p-800.png 800w, assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo-p-1080.png 1080w, assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo.png 1536w" alt="" class="image-4"/><a href="https://mes-premier-pas.webflow.io//home" data-text="Nos valeurs" class="link">Acceuil</a><a href="/" data-text="Nos valeurs" class="link">Nos crèches</a><a href="/about" data-text="Nos valeurs" class="link">Nos valeurs</a><a href="/journee-type" data-text="Journée type" class="link">Journée type</a><a href="#" data-text="Recrutement" class="link">Recrutement</a></div><div class="navbar-droite"><div class="text-block"><a href="tel:+33450839994" class="link-2">+33 4 50 83 99 94</a></div><a href="https://www.labulledespetitspas.com/_files/ugd/2ab568_b72a1b0fc9e649818590a7ef41905c2d.pdf" class="button type1 pre-inscription w-button">Pré-inscription</a></div></div></div><section class="hero-section vers-ocean"><div class="div-tampon"></div><a href="#" class="button type1 visite w-button">Visite Virtuelle</a><div class="div-footer"><div class="div-tampon"></div><h1 class="heading-7">VERS <span class="text-span-15">OCEAN</span> </h1></div></section><section class="pratique-section"><div class="pratique-content"><div class="block-content"><div class="content-video"><div class="code-embed-3 w-embed"><video 
+</head><body><div class="page-wrapper"><div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-2 w-nav"><div class="container w-container"><div class="navbar-gauche"><img src="assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo.png" loading="lazy" sizes="100vw" srcset="assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo-p-500.png 500w, assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo-p-800.png 800w, assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo-p-1080.png 1080w, assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/697999635820c3472029c0ec_logo.png 1536w" alt="" class="image-4"/><a href="index.html" data-text="Nos valeurs" class="link">Acceuil</a><a href="/" data-text="Nos valeurs" class="link">Nos crèches</a><a href="about.html" data-text="Nos valeurs" class="link">Nos valeurs</a><a href="journee-type.html" data-text="Journée type" class="link">Journée type</a><a href="#" data-text="Recrutement" class="link" aria-disabled="true">Recrutement</a></div><div class="navbar-droite"><div class="text-block"><a href="tel:+33450839994" class="link-2">+33 4 50 83 99 94</a></div><a href="https://www.labulledespetitspas.com/_files/ugd/2ab568_b72a1b0fc9e649818590a7ef41905c2d.pdf" class="button type1 pre-inscription w-button">Pré-inscription</a></div></div></div><section class="hero-section vers-ocean"><div class="div-tampon"></div><a href="#" class="button type1 visite w-button">Visite Virtuelle</a><div class="div-footer"><div class="div-tampon"></div><h1 class="heading-7">VERS <span class="text-span-15">OCEAN</span> </h1></div></section><section class="pratique-section"><div class="pratique-content"><div class="block-content"><div class="content-video"><div class="code-embed-3 w-embed"><video 
   autoplay 
   loop 
   muted 
@@ -1471,10 +1471,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // CRÈCHES - URLs
   // ================================
   var creches = [
-    { text: 'Vers 1 Océan',        href: '/nos-creche-vers-ocean' },
-    { text: 'Vers Forêt',          href: '/nos-creche-vers-foret' },
-    { text: 'Valleiry Montagne',   href: '/nos-creche-valleiry-montagne' },
-    { text: 'Saint-Julien Savane', href: '/nos-creche-saint-julien-savane' }
+    { text: 'Vers 1 Océan',        href: 'nos-creche-vers-ocean.html' },
+    { text: 'Vers Forêt',          href: 'nos-creche-vers-foret.html' },
+    { text: 'Valleiry Montagne',   href: '#', disabled: true },
+    { text: 'Saint-Julien Savane', href: '#', disabled: true }
   ];
 
   // ================================
@@ -1483,7 +1483,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var logoImg = navbar.querySelector('.image-4');
   if (logoImg && !logoImg.closest('a')) {
     var logoLink = document.createElement('a');
-    logoLink.href = '/';
+    logoLink.href = 'index.html';
     logoImg.parentElement.insertBefore(logoLink, logoImg);
     logoLink.appendChild(logoImg);
   }
@@ -1530,6 +1530,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var a = document.createElement('a');
       a.href = c.href;
       a.textContent = c.text;
+      if (c.disabled) a.setAttribute('aria-disabled', 'true');
       panelEl.appendChild(a);
     });
 
@@ -1620,12 +1621,12 @@ document.addEventListener('DOMContentLoaded', function() {
   linkData.forEach(function(data) {
     if (data.text.toLowerCase().indexOf('accueil') >= 0 ||
         data.text.toLowerCase().indexOf('acceuil') >= 0) {
-      data.el.setAttribute('href', '/');
+      data.el.setAttribute('href', 'index.html');
       data.el.addEventListener('click', function(e) {
         // Ne pas bloquer si c'est un ctrl+click ou cmd+click
         if (e.ctrlKey || e.metaKey) return;
         e.preventDefault();
-        window.location.href = '/';
+        window.location.href = 'index.html';
       });
     }
   });
@@ -1673,7 +1674,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var mobileMenu = document.createElement('div');
   mobileMenu.className = 'mobile-menu';
 
-  var menuHTML = '<a href="/"><img src="' + logoSrc + '" alt="Logo" class="mobile-logo"></a>';
+  var menuHTML = '<a href="index.html"><img src="' + logoSrc + '" alt="Logo" class="mobile-logo"></a>';
 
   // Utiliser linkData pour garder les bons textes et href
   linkData.forEach(function(data) {
@@ -1684,16 +1685,18 @@ document.addEventListener('DOMContentLoaded', function() {
       menuHTML += '<button class="mobile-dd-toggle">Nos crèches <span class="mobile-dd-arrow">▾</span></button>';
       menuHTML += '<div class="mobile-dd-sub">';
       creches.forEach(function(c) {
-        menuHTML += '<a href="' + c.href + '">' + c.text + '</a>';
+        var ddAttr = c.disabled ? ' aria-disabled="true"' : '';
+        menuHTML += '<a href="' + c.href + '"' + ddAttr + '>' + c.text + '</a>';
       });
       menuHTML += '</div>';
     } else {
       // Forcer href="/" pour Accueil
       if (text.toLowerCase().indexOf('accueil') >= 0 ||
           text.toLowerCase().indexOf('acceuil') >= 0) {
-        href = '/';
+        href = 'index.html';
       }
-      menuHTML += '<a href="' + href + '" class="mobile-link">' + text + '</a>';
+      var mLinkAttr = data.el.getAttribute('aria-disabled') === 'true' ? ' aria-disabled="true"' : '';
+      menuHTML += '<a href="' + href + '" class="mobile-link"' + mLinkAttr + '>' + text + '</a>';
     }
   });
 
@@ -1725,6 +1728,11 @@ document.addEventListener('DOMContentLoaded', function() {
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
     });
+  });
+
+  // Empêcher toute navigation sur les liens rendus inertes (aria-disabled)
+  document.querySelectorAll('[aria-disabled="true"]').forEach(function(el) {
+    el.addEventListener('click', function(e) { e.preventDefault(); });
   });
 
 });
