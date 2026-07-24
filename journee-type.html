@@ -818,16 +818,6 @@ document.addEventListener('DOMContentLoaded', function() {
       friseEl.appendChild(dotEl);
     });
 
-    // Image de fin
-    var lastDot = allDots[allDots.length - 1];
-    if (lastDot) {
-      var endImg = document.createElement('img');
-      endImg.className = 'frise-end-image';
-      endImg.src = 'assets/cdn.prod.website-files.com/6976e155d54ea0f654b007b1/69c7abcb4c6e80254721ebab_fin-frise.svg';
-      endImg.alt = 'Fin de la journée';
-      endImg.style.top = (lastDot.y + dotRadius + 15) + 'px';
-      friseEl.appendChild(endImg);
-    }
   }
 
   buildFrise();
