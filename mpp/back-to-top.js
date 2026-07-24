@@ -31,7 +31,9 @@
       '.mpp-haut.visible{opacity:1;transform:translateY(0);pointer-events:auto;}' +
       '.mpp-haut:hover{background:rgba(250,246,238,.96);box-shadow:0 8px 22px rgba(120,100,60,.24);}' +
       '.mpp-haut:focus-visible{outline:2px solid var(--mpp-back-to-top, #E8A248);outline-offset:2px;}' +
-      '.mpp-haut svg{width:20px;height:20px;display:block;stroke:var(--mpp-back-to-top, #E8A248);}' +
+      // Icône = fonctionnelle (doit rester lisible) → encre. L'anneau, décoratif,
+      // garde la couleur de la page (voir bordure ci-dessus).
+      '.mpp-haut svg{width:20px;height:20px;display:block;stroke:var(--mpp-ink, #1b1b1b);}' +
       '@media (max-width:479px){.mpp-haut{right:16px;bottom:16px;}}';
     (document.head || document.documentElement).appendChild(st);
   };
