@@ -246,3 +246,101 @@ html[data-creche] .button.type1.visite {
     opacity: 1 !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PHASE 5 — Bouton "Visite Virtuelle" avec totem
+
+   Contrainte matérielle : les totems sont des PNG en pastille ronde, fond de
+   couleur incrusté dans le fichier (pas de transparence, pas de détourage
+   CSS possible, cf. da-mpp.md §6.2) — composition imposée : pastille à
+   gauche, débordant au-dessus/à gauche du bouton, libellé à droite. Le
+   totem est un enfant DOM du lien (pas juste posé dessus) : un clic dessus
+   déclenche la navigation comme le reste du bouton (bulle jusqu'à l'ancre),
+   pas de pointer-events:none qui l'exclurait de la zone cliquable.
+
+   Police du libellé : Fuzzybubbles (self-host, webflow.shared…css) —
+   même choix que la description des horaires d'index.html (session
+   précédente) : seule graphie vérifiable dans ce sandbox, Google Fonts y
+   étant bloqué. 'Fuzzy Bubbles' (Google Fonts, deux mots) est également
+   chargée sur ces pages mais son rendu réel n'est pas vérifiable ici.
+
+   Couleurs : fond --creche-accent, texte --creche-contraste — mêmes
+   variables et mêmes ratios de contraste que les boutons ip/pp (phase 3,
+   >= 4,5:1 sur les 4 thèmes sauf montagne en accent-fonce, cas particulier
+   déjà signalé — non concerné ici car .mpp-visite-totem utilise l'accent de
+   base, pas l'accent-fonce, à l'idle).
+
+   Zone cliquable : min-height 44px sur l'ancre elle-même ; le totem,
+   overflow:visible, déborde du cadre du bouton mais reste un descendant du
+   lien — jamais la zone cliquable réduite pour faire de la place au totem. */
+html[data-creche] .mpp-visite-totem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow: visible;
+  min-height: 44px;
+  padding: 12px 30px 12px 46px !important;
+  background-color: var(--creche-accent) !important;
+  color: var(--creche-contraste) !important;
+  font-family: 'Fuzzybubbles', Raleway, Arial, sans-serif !important;
+  font-weight: 700;
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s ease,
+              transform 0.2s ease !important;   /* box-shadow/transform : mêmes propriétés que le .button.type1 d'origine (survol scale+ombre), reconduites à l'identique pour ne pas perdre leur transition douce en écrasant le raccourci "transition" */
+}
+html[data-creche] .mpp-visite-totem:hover,
+html[data-creche] .mpp-visite-totem:focus-visible {
+  background-color: var(--creche-accent-fonce) !important;
+  color: var(--mpp-white) !important;
+}
+html[data-creche] .mpp-visite-totem:focus-visible {
+  outline: 2px solid var(--creche-accent-fonce);
+  outline-offset: 3px;
+}
+
+.mpp-visite-totem__totem {
+  position: absolute;
+  top: -14px;
+  left: -18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: drop-shadow(0 8px 16px rgba(27, 27, 27, 0.18));
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html[data-creche] .mpp-visite-totem:hover .mpp-visite-totem__totem,
+html[data-creche] .mpp-visite-totem:focus-visible .mpp-visite-totem__totem {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.mpp-visite-totem__label {
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Le changement de couleur au survol subsiste (transition déjà courte,
+     0.2s, non concernée par la consigne) ; seule l'animation du totem
+     (rotation/rebond) est supprimée. */
+  .mpp-visite-totem__totem {
+    transition: none !important;
+  }
+  html[data-creche] .mpp-visite-totem:hover .mpp-visite-totem__totem,
+  html[data-creche] .mpp-visite-totem:focus-visible .mpp-visite-totem__totem {
+    transform: none !important;
+  }
+}
+
+/* <480px : réduire le totem, jamais la zone cliquable (min-height reste 44px). */
+@media screen and (max-width: 479px) {
+  html[data-creche] .mpp-visite-totem {
+    padding: 10px 22px 10px 38px !important;
+  }
+  .mpp-visite-totem__totem {
+    width: 42px;
+    height: 42px;
+    top: -10px;
+    left: -14px;
+  }
+}
