@@ -131,6 +131,28 @@ html[data-creche="savane"] .hero-section {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   SECTION ÉQUIPE (.cc-section.versocean) — fond par thème
+
+   Même bug d'aspiration Webflow que le hero ci-dessus : la section carrousel
+   équipe porte la classe "cc-section versocean" sur LES DEUX pages crèche
+   (nos-creche-vers-foret.html:667 ET nos-creche-vers-ocean.html:667), classe
+   jamais adaptée par page. Le fond de .cc-section.versocean
+   (mes-premier-pas.webflow.shared…css:2907, background-color:
+   var(--_couleurs---c-bleu)) est donc bleu même sur la page Forêt.
+
+   Correctif : fond piloté par --creche-accent (même variable que les
+   boutons ci-dessous), scoped par data-creche — la classe Webflow bugguée
+   n'est pas retirée ni remplacée, seulement neutralisée par un sélecteur
+   plus spécifique. Aucune classe .versforet créée.
+
+   montagne/savane n'ont pas de page aujourd'hui : couvertes automatiquement,
+   --creche-accent étant déjà défini pour les quatre thèmes plus haut dans ce
+   fichier. */
+html[data-creche] .cc-section.versocean {
+  background-color: var(--creche-accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    BOUTONS — remplace les couleurs en dur du CSS Webflow partagé
    (mes-premier-pas.webflow.shared…css:2501-2645), incohérentes d'un bouton à
    l'autre et parfois d'un état à l'autre (ex. .ip.foret / .ip.foret:hover ne
