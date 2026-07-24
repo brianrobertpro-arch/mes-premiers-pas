@@ -1204,10 +1204,11 @@
       flex: 0 0 50%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       padding: 80px 60px;
       background: #B5C0D4;
       position: relative;
+      overflow: hidden;
     }
     
     .section-title {
@@ -1220,7 +1221,9 @@
     }
     
     #dynamic-text {
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      /* Mêmes durée/easing que #carousel (transform 0.6s cubic-bezier(0.4,0,0.2,1))
+         — synchronisé sur le même déclencheur dans updateSlide(), voir <script>. */
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     #description {
@@ -1601,6 +1604,7 @@ const modalClose = document.getElementById('modal-close');
  
 let currentIndex = 0;
 const totalSlides = teamData.length;
+const reduitMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  
 function createSlides() {
   carousel.innerHTML = '';
@@ -1649,22 +1653,32 @@ function updateSlide(index, animate = true) {
   
   const slideWidth = getSlideWidth();
   const offset = (totalSlides + index) * slideWidth;
-  
-  if (animate) {
-    carousel.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-  } else {
-    carousel.style.transition = 'none';
-  }
+  const anime = animate && !reduitMotion;
+
+  carousel.style.transition = anime ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
   carousel.style.transform = `translateX(-${offset}px)`;
-  
-  dynamicText.style.opacity = '0';
-  dynamicText.style.transform = 'translateY(10px)';
-  
+
+  // Texte synchronisé sur le même déclencheur que le carrousel ci-dessus, même
+  // durée/easing (0.6s cubic-bezier(0.4,0,0.2,1)) : glisse sous le bord gauche
+  // de .text-side (overflow:hidden), puis le contenu est permuté et le texte
+  // revient en fondu depuis sa position neutre.
+  dynamicText.style.transition = anime
+    ? 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+    : 'none';
+  dynamicText.style.opacity = anime ? '0' : '1';
+  dynamicText.style.transform = anime ? 'translateX(-100%)' : 'translateX(0)';
+
+  const delai = anime ? 600 : 0;
   setTimeout(() => {
     description.textContent = teamData[realIndex].description;
-    dynamicText.style.opacity = '1';
-    dynamicText.style.transform = 'translateY(0)';
-  }, 250);
+    if (anime) {
+      dynamicText.style.transition = 'none';
+      dynamicText.style.transform = 'translateX(0)';
+      void dynamicText.offsetWidth;   // force le reflow avant de réactiver la transition
+      dynamicText.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      dynamicText.style.opacity = '1';
+    }
+  }, delai);
 }
  
 navBtn.addEventListener('click', () => {
