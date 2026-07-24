@@ -2888,7 +2888,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() { if (elements.reseaux) elements.reseaux.classList.add('visible'); }, timing.reseaux);
     setTimeout(function() { if (elements.footer) elements.footer.classList.add('visible'); }, timing.footer);
   }
-  setTimeout(animateHero, timing.start);
+  // Départ de la cascade asservi à l'état réel du thread plutôt qu'à un
+  // compte à rebours aveugle : si le thread est occupé (scripts Webflow/GSAP
+  // en cours d'exécution), on attend qu'il se libère au lieu de démarrer la
+  // cascade pendant qu'il est bloqué (elle serait alors jouée en rattrapage,
+  // hors écran perçu). timing.start reste le délai plafond : comportement
+  // identique à avant si le thread ne se libère jamais avant lui. Les délais
+  // *entre* éléments (timing.line1..footer) ne changent pas.
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(animateHero, { timeout: timing.start });
+  } else {
+    requestAnimationFrame(function() { requestAnimationFrame(animateHero); });
+  }
 });
 </script>
 
