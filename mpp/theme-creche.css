@@ -1,0 +1,93 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MPP — THÈME PAR CRÈCHE
+   Chaque page crèche porte data-creche="ocean|foret|montagne|savane" sur
+   <html>. Ce fichier définit, par valeur de cet attribut, un jeu de variables
+   CSS réutilisées par les boutons (mpp/theme-creche.css consommé après
+   mpp/overrides.css, qui porte les tokens --mpp-* dont ce fichier dépend).
+
+   --creche-accent       : couleur dominante de la crèche (= un token --mpp-*
+                           existant, cf. da-mpp.md §2.7 "Palette retenue").
+   --creche-accent-fonce : variante assombrie, pour les états hover/actif ET
+                           le texte sur fond clair (titre hero). Hex calculés
+                           hors CSS (assombrissement RGB simple vers le noir,
+                           pas de color-mix()/calc() : support navigateur trop
+                           récent pour un site en production) puis écrits en
+                           dur ; dérivation et ratio de contraste commentés
+                           à chaque règle.
+   --creche-accent-clair : variante éclaircie (RGB vers le blanc, 35%), pour
+                           fonds/survols discrets. Aucune exigence de contraste
+                           n'est demandée pour cette variante (décorative).
+   --creche-contraste    : couleur de texte lisible SUR --creche-accent.
+                           Mesuré : le blanc (couleur historique des boutons
+                           Webflow, .w-button{color:#fff}) échoue sur les
+                           quatre accents de base (1,16:1 à 3,00:1 — sous le
+                           seuil légal de 4,5:1). L'encre --mpp-ink passe sur
+                           les quatre (5,75:1 à 14,82:1) : retenue uniformément
+                           comme --creche-contraste. Sur les états hover/actif
+                           (fond = accent-fonce, plus sombre), c'est l'inverse
+                           qui est vrai (l'encre y échoue, 2,76:1 à 3,77:1) —
+                           ces états repassent donc en blanc directement dans
+                           les règles de boutons (phase 3), pas ici : ce n'est
+                           pas une nouvelle couleur, c'est le blanc déjà
+                           utilisé par .w-button.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── OCÉAN — bleu (--mpp-bleu, da-mpp.md §2.7) ────────────────────────────
+   accent-fonce : #8195c2 assombri de 35 % vers le noir -> #54617e.
+   Contraste vs crème #ebe6d4 (fond de carte/section) : 4,97:1 (>= 4,5:1 requis).
+   Contraste texte encre --mpp-ink (#1b1b1b) sur l'accent de base : 5,75:1.
+   Contraste texte blanc sur l'accent-fonce (hover/actif) : 6,20:1. */
+:root[data-creche="ocean"], html[data-creche="ocean"] {
+  --creche-accent: var(--mpp-bleu);
+  --creche-accent-fonce: #54617e;
+  --creche-accent-clair: #adbad7;
+  --creche-contraste: var(--mpp-ink);
+}
+
+/* ─── FORÊT — lime (--mpp-lime, da-mpp.md §2.7) ────────────────────────────
+   accent-fonce : #d9dd7e assombri de 55 % vers le noir -> #626339 (le lime
+   est très clair : il faut l'assombrir bien plus que le bleu pour atteindre
+   le seuil de contraste).
+   Contraste vs crème #ebe6d4 : 4,98:1 (>= 4,5:1 requis).
+   Contraste texte encre sur l'accent de base : 11,97:1.
+   Contraste texte blanc sur l'accent-fonce (hover/actif) : 6,24:1. */
+:root[data-creche="foret"], html[data-creche="foret"] {
+  --creche-accent: var(--mpp-lime);
+  --creche-accent-fonce: #626339;
+  --creche-accent-clair: #e6e9ab;
+  --creche-contraste: var(--mpp-ink);
+}
+
+/* ─── MONTAGNE (page à venir) — neige, dérivée de --mpp-bleu ───────────────
+   accent : #ebeef4, --mpp-bleu (#8195c2) éclairci de 84 % vers le blanc
+   (vérifié : lighten(#8195c2, 0.84) = #ebeef5, à 1 unité près de la valeur
+   fournie par la consigne — dérivation confirmée).
+   accent-fonce : CAS PARTICULIER. Assombrir la neige elle-même ne suffit à
+   aucun seuil de lisibilité utile (une neige assombrie reste presque blanche
+   à toute profondeur raisonnable) : la consigne impose donc le rose de la
+   charte --mpp-rose (#c14c7c) comme accent-fonce pour ce thème, pas une
+   dérivée de l'accent.
+   Contraste rose vs crème #ebe6d4 : 3,66:1 — SOUS le seuil de 4,5:1 (mesuré,
+   consigné tel quel : la consigne fixe cette valeur explicitement, ce n'est
+   pas un choix laissé à cette session — voir « Décisions prises seul »).
+   Contraste texte blanc sur le rose (hover/actif) : 4,57:1 (>= 4,5:1, tout
+   juste).
+   Contraste texte encre sur l'accent de base (neige) : 14,82:1. */
+:root[data-creche="montagne"], html[data-creche="montagne"] {
+  --creche-accent: #ebeef4;
+  --creche-accent-fonce: var(--mpp-rose);
+  --creche-accent-clair: #f2f4f8;
+  --creche-contraste: var(--mpp-ink);
+}
+
+/* ─── SAVANE (page à venir) — orange (--mpp-orange, da-mpp.md §2.7) ────────
+   accent-fonce : #e8a248 assombri de 45 % vers le noir -> #805928.
+   Contraste vs crème #ebe6d4 : 4,98:1 (>= 4,5:1 requis).
+   Contraste texte encre sur l'accent de base : 7,95:1.
+   Contraste texte blanc sur l'accent-fonce (hover/actif) : 6,22:1. */
+:root[data-creche="savane"], html[data-creche="savane"] {
+  --creche-accent: var(--mpp-orange);
+  --creche-accent-fonce: #805928;
+  --creche-accent-clair: #f0c388;
+  --creche-contraste: var(--mpp-ink);
+}
