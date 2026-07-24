@@ -1807,11 +1807,10 @@ Elle dispose d'un beau jardin extérieur avec vue sur les montagnes, ainsi que d
 </script>
 <style>
   
-/* Cacher avant le rendu — pas de flash */
-.heading-7,
-.button.type1.visite {
-  opacity: 0;
-}
+/* Cacher avant le rendu — pas de flash.
+   .heading-7 n'est plus concerné : sa révélation passe par clip-path
+   (mpp/theme-creche.css), pas par opacité — le garder ici masquerait le
+   titre en continu si ce fichier chargeait avant mpp/theme-creche.css. */
 .button.type1.visite {
   opacity: 0;
 }
@@ -1852,23 +1851,9 @@ Elle dispose d'un beau jardin extérieur avec vue sur les montagnes, ainsi que d
 <script>
 (function() {
 
-  /* HERO — Titre → Bouton visite */
-  var titre = document.querySelector('.heading-7');
-  var btnVisite = document.querySelector('.button.type1.visite');
-
-  setTimeout(function() {
-    if (titre) {
-      titre.style.transition = 'opacity 1.2s ease';
-      titre.style.opacity = '1';
-    }
-  }, 800);
-
-  setTimeout(function() {
-    if (btnVisite) {
-      btnVisite.style.transition = 'opacity 1.2s ease';
-      btnVisite.style.opacity = '1';
-    }
-  }, 1400);
+  /* HERO — Titre → Bouton visite : révélation gérée en CSS pur
+     (mpp/theme-creche.css, animations mpp-hero-reveal-vague/-pousse et
+     mpp-hero-bouton-fondu) — plus de fondu piloté en JS ici. */
 
   /* PRATIQUE — Bouton 1 → Bouton 2 → Texte + Spirale */
   var btnInfos = document.querySelector('.button.type1.ip');

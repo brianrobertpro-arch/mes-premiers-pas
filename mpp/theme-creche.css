@@ -145,3 +145,104 @@ html[data-creche] .button.type1.pp.is-active {
   background-color: var(--creche-accent-fonce) !important;
   color: var(--mpp-white) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TITRE DU HERO (.heading-7 « VERS OCÉAN/FORÊT »)
+
+   4a — Webflow shared css (mes-premier-pas.webflow.shared…css:3462) pose un
+   contour : -webkit-text-stroke-width:1px + couleur encre, fill blanc, span
+   "OCEAN"/"FORÊT" en lime fixe (:3474) — jamais thématique. Retiré ici, texte
+   entier recoloré en --creche-accent-fonce (encre déjà utilisée par le
+   contour d'origine, cohérent avec la charte). Contraste mesuré vs crème
+   --mpp-cream (fond de section le plus proche disponible pour mesure fiable
+   dans ce sandbox — l'egress bloque le chargement du fond hero réel, une
+   photo distante cdn.prod.website-files.com ; à re-vérifier en production,
+   voir rapport) : identique aux ratios --creche-accent-fonce déjà consignés
+   plus haut (>= 4,5:1 sur les 4 thèmes, montagne compris à 3,66:1 — cas
+   particulier déjà signalé).
+
+   4b — Révélation par clip-path polygon(), scoped par data-creche. Même
+   nombre et même ordre de sommets entre les deux keyframes (0%/100%) : seule
+   la coordonnée X de chaque sommet varie, donc la FORME reste rigide et se
+   contente de glisser de gauche à droite (pas d'interpolation qui déformerait
+   le tracé). clip-path ne retire jamais le texte du DOM ni de l'arbre
+   d'accessibilité : sélectionnable et lisible au lecteur d'écran pendant et
+   après l'animation (contrairement à display:none/visibility:hidden).
+   Aucun scale/skew/rotation sur les glyphes.
+
+   OCÉAN — vague : front sinusoïdal (1 cycle complet sur la hauteur du
+   titre, amplitude 8%), disposé sur 7 points (0/16,67/33,33/50/66,67/
+   83,33/100 % de hauteur). Position de départ décalée de -10% (marge de
+   sécurité au-delà de l'amplitude, rien ne dépasse 0%) ; position d'arrivée
+   décalée de +110% (symétrique, rien ne reste sous 100%).
+
+   FORÊT — pousse : front en paliers nets (5 bandes de 20% de hauteur,
+   plateau horizontal puis saut vertical à angle droit — pas de courbe),
+   décalages [0,6,12,6,0] (motif symétrique, façon cernes de croissance).
+   Mêmes marges de sécurité (-15% / +115%) que l'océan pour garantir un état
+   totalement caché puis totalement révélé.
+
+   Durée commune 1100ms (dans la fourchette 900-1400ms imposée), easing de
+   charte cubic-bezier(0.22,1,0.36,1), pour les deux thèmes — seule la forme
+   du front diffère. */
+html[data-creche] .heading-7 {
+  color: var(--creche-accent-fonce) !important;
+  -webkit-text-stroke-width: 0 !important;
+  -webkit-text-stroke-color: transparent !important;
+}
+html[data-creche] .text-span-15 {
+  color: var(--creche-accent-fonce) !important;
+}
+
+html[data-creche] .heading-7 {
+  opacity: 1 !important;               /* la révélation se fait par clip-path, pas par opacité */
+  animation-duration: 1100ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  animation-delay: 150ms;
+}
+html[data-creche="ocean"] .heading-7 { animation-name: mpp-hero-reveal-vague; }
+html[data-creche="foret"] .heading-7 { animation-name: mpp-hero-reveal-pousse; }
+
+@keyframes mpp-hero-reveal-vague {
+  0%   { clip-path: polygon(-25% 0%, -10.00% 0%, -3.07% 16.67%, -3.07% 33.33%, -10.00% 50%, -16.93% 66.67%, -16.93% 83.33%, -10.00% 100%, -25% 100%); }
+  100% { clip-path: polygon(-25% 0%, 110.00% 0%, 116.93% 16.67%, 116.93% 33.33%, 110.00% 50%, 103.07% 66.67%, 103.07% 83.33%, 110.00% 100%, -25% 100%); }
+}
+@keyframes mpp-hero-reveal-pousse {
+  0%   { clip-path: polygon(-25% 0%, -15% 0%, -15% 20%, -9% 20%, -9% 40%, -3% 40%, -3% 60%, -9% 60%, -9% 80%, -15% 80%, -15% 100%, -25% 100%); }
+  100% { clip-path: polygon(-25% 0%, 115% 0%, 115% 20%, 121% 20%, 121% 40%, 127% 40%, 127% 60%, 121% 60%, 121% 80%, 115% 80%, 115% 100%, -25% 100%); }
+}
+
+/* 4c — bouton "Visite Virtuelle" : entre en fondu APRÈS le titre (ordre
+   lisible titre -> bouton), léger recouvrement avec la fin de la révélation
+   du titre (démarre à 950ms, le titre finit sa révélation à 150+1100=1250ms)
+   plutôt qu'une attente totale — cohérent avec le style de cascade déjà
+   pratiqué ailleurs sur le site (départs décalés, pas de blocage séquentiel
+   strict). --hero-cascade (130ms) n'est pas atteignable ici : mpp/hero.css
+   n'est pas chargé sur ces deux pages (vérifié par grep) — pas de sous-titre
+   dans ce hero (uniquement titre + bouton). Séquence complète : départ titre
+   150ms -> fin bouton 950+500=1450ms, soit 1300ms d'étalement, sous le
+   plafond de 2000ms. */
+html[data-creche] .button.type1.visite {
+  animation-name: mpp-hero-bouton-fondu;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  animation-delay: 950ms;
+}
+@keyframes mpp-hero-bouton-fondu {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-creche] .heading-7 {
+    animation: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+  html[data-creche] .button.type1.visite {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
