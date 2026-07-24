@@ -91,3 +91,57 @@
   --creche-accent-clair: #f0c388;
   --creche-contraste: var(--mpp-ink);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BOUTONS — remplace les couleurs en dur du CSS Webflow partagé
+   (mes-premier-pas.webflow.shared…css:2501-2645), incohérentes d'un bouton à
+   l'autre et parfois d'un état à l'autre (ex. .ip.foret / .ip.foret:hover ne
+   différaient que d'une opacité de 30 % — hover à peine perceptible ;
+   .pp.foret passait à l'encre puis au beige au survol, sans rapport avec le
+   thème). Ne touche que .visite/.ip/.pp (seuls boutons réellement utilisés
+   sur ces deux pages, cf. phase 1) — jamais .pre-inscription (navbar,
+   partagée avec les autres pages, hors périmètre).
+
+   Spécificité : ce fichier charge après le CSS Webflow partagé (même ordre
+   de source suffirait déjà à égalité de spécificité), mais les couleurs
+   utilisent !important — convention déjà en vigueur dans mpp/overrides.css
+   pour ce même besoin (surcharger des règles Webflow au poids variable).
+   Forme/taille/rayon/espacement d'origine non touchés : seule la couleur
+   change, comme demandé.
+
+   --creche-contraste (encre) passe l'idle (fond = accent clair) ; le blanc,
+   déjà la couleur historique de .w-button, repasse sur les états hover/actif
+   (fond = accent-fonce, plus sombre) — voir la démonstration de contraste en
+   tête de fichier. Aucune couleur nouvelle introduite dans ni l'un ni
+   l'autre cas.
+
+   Easing : le bouton ne portait pas de easing explicite (transition avec
+   fonction implicite "ease" par défaut) — la signature de charte
+   cubic-bezier(0.22,1,0.36,1) est donc appliquée aux propriétés couleur
+   sans conflit à signaler. box-shadow/transform gardent leur "ease" et leur
+   durée d'origine (0.2s), redéclarés ici à l'identique uniquement parce que
+   CSS n'autorise pas un easing par propriété sans réénoncer tout le train
+   de transitions. */
+html[data-creche] .button.type1.visite,
+html[data-creche] .button.type1.ip,
+html[data-creche] .button.type1.pp {
+  background-color: var(--creche-accent) !important;
+  color: var(--creche-contraste) !important;
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s ease,
+              transform 0.2s ease !important;
+}
+
+html[data-creche] .button.type1.visite:hover,
+html[data-creche] .button.type1.ip:hover,
+html[data-creche] .button.type1.ip:active,
+html[data-creche] .button.type1.ip:focus,
+html[data-creche] .button.type1.ip.is-active,
+html[data-creche] .button.type1.pp:hover,
+html[data-creche] .button.type1.pp:active,
+html[data-creche] .button.type1.pp:focus,
+html[data-creche] .button.type1.pp.is-active {
+  background-color: var(--creche-accent-fonce) !important;
+  color: var(--mpp-white) !important;
+}
