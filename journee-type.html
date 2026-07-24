@@ -491,6 +491,21 @@
     margin-right: 30px !important;
   }
 }
+
+/* 6c — au-dessus de 767px, le CSS Webflow partagé
+   (mes-premier-pas.webflow.shared…css:3624) pose .heading-8 en
+   position:relative + left:5vw sur un <h1> pleine largeur : le décalage
+   pousse le bord droit du titre hors du viewport (72px de débordement
+   horizontal mesuré à 1440px, = 5vw à cette largeur, correspondance exacte).
+   Aucun correctif n'existait ici — seuls <=767px et <=479px neutralisaient
+   le débordement (position:absolute). Neutralise le décalage à la source
+   plutôt que de reproduire l'absolute (option la plus simple, ne touche
+   qu'à la propriété responsable du débordement). */
+@media (min-width: 768px) {
+  .hero-section.journee-type .heading-8 {
+    left: 0 !important;
+  }
+}
 </style><style>.w-webflow-badge{display:none!important}</style>
   <link rel="stylesheet" href="mpp/overrides.css"><link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&family=Nunito:wght@400;600;700&family=Raleway:ital,wght@0,400;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="mpp/footer.css">
   <style>:root{--mpp-back-to-top:var(--mpp-orange);}</style>
